@@ -1,0 +1,11 @@
+IMPORTANT LINKS RELATED TO THIS PROJECT:
+
+1. YouTube project demo: <to-be-provided>
+
+2. GitHub Organization: https://github.com/SkillVerser **Please use this link when accessing our repo's. It contains a README that details precisely how to navigate our docs**
+
+3. Documents Repo: https://github.com/SkillVerser/Documents
+
+4. Source Code Repo: https://github.com/SkillVerser/freelancer-management-platform
+
+5. Site: https://lively-coast-034460503.6.azurestaticapps.net/
