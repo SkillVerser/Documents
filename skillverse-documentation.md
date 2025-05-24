@@ -100,12 +100,18 @@ PAYSTACK_SECRET_KEY:<your-paystack-secret-key>
 
 3. **Start Development Servers**
 
+   Start the backend server
+
    ```bash
    # Start backend server
    cd backend
    npm run dev
    # Alternatively, use node server.js instead of npm run dev
+   ```
 
+   Now, in a separate terminal, start the frontend server
+
+   ```bash
    # Start frontend server
    cd frontend
    npm start
