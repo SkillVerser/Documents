@@ -1,4 +1,13 @@
-# SkillVerse - Documentation
+# SkillVerse - Complete Documentation
+
+## Group Members:
+
+- Bayanda Jack - 2669074 | 2669074@students.wits.ac.za
+- Ebrahim Hoosen - 2321330 | 2321330@students.wits.ac.za
+- Maseeha Gani - 2657299 | 2567299@students.wits.ac.za
+- Muhammed Zayaan Omar - 2663134 | 2663134@students.wits.ac.za
+- Siyabonga Mbendane - 2556073 | 2556073@students.wits.ac.za
+- Tazeem Tayob - 2659956 | 2659956@students.wits.ac.za
 
 ## Contents
 
@@ -9,8 +18,9 @@
 5. [Core Features](#core-features)
 6. [Technical Implementations](#technical-implementations)
 7. [Security](#security)
-8. [Deployment](#deployment)
-9. [Known Isuues](#known-issues)
+8. [Testing](#testing)
+9. [Deployment](#deployment)
+10. [Known Issues](#known-issues)
 
 ## Overview
 
@@ -41,6 +51,8 @@ The app is built using the MERN stack - MongoDB, Express, React, and Node.js. Sp
 - Google OAuth for user authentication
 - Paystack for payment processing
 - Azure Web Services for hosting
+
+The system follows a client-server architecture. Clients interact with the frontend and send requests to the backend through exposed API endpoints. The server receives these requests, fetches data from the MongoDB database, and returns the data to the frontend for the client to use.
 
 ## Setup & Installation
 
@@ -80,8 +92,7 @@ PAYSTACK_SECRET_KEY:<your-paystack-secret-key>
    # Install backend dependencies
    cd backend
    npm install
-   ```
-   ```bash
+
    # Install frontend dependencies
    cd frontend
    npm install
@@ -93,8 +104,8 @@ PAYSTACK_SECRET_KEY:<your-paystack-secret-key>
    # Start backend server
    cd backend
    npm run dev
-   ```
-   ```bash
+   # Alternatively, use node server.js instead of npm run dev
+
    # Start frontend server
    cd frontend
    npm start
@@ -108,7 +119,7 @@ PAYSTACK_SECRET_KEY:<your-paystack-secret-key>
 
 ### Google OAuth Implementation
 
-The app makes use of Passport.js with the Google OAuth 2.0 strategy for user authentication. Users sign up and login via Google, and no sensitive information, such as emails or passwords, are stored in the database.
+The app makes use of Passport.js with the Google OAuth 2.0 strategy for user authentication. Users sign up and login via Google, and no sensitive information, such as emails or passwords, is stored in the database.
 
 ### Authentication Flow
 
@@ -259,7 +270,7 @@ This section provides the technical implementations of various aspects of the ap
 
 ### Database Models
 
-The following are the core models of the system. There are others not shown, but they are are significantly less importance
+The following are the core models of the system.
 
 ```javascript
 //Application Model
@@ -505,7 +516,7 @@ The following are the core models of the system. There are others not shown, but
 
   const upload = multer({
     storage: storage,
-    limits: { fileSize: 5 _ 1024 _ 1024 },
+    limits: { fileSize: 5 * 1024 * 1024 },
   });
   ```
 
@@ -665,6 +676,72 @@ const amountDue = (progressDelta / 100) * serviceRequest.price;
 - Secure and unique file naming and file upload restrictions
 - Role-based access control
 - CORS protection for cross-origin requests
+
+```javascript
+// Google OAuth
+router.get(
+  "/google",
+  passport.authenticate("google", {
+    scope: ["profile", "email"],
+  })
+);
+
+// Paystack signature validation
+if (hash != req.headers["x-paystack-signature"]) {
+  return res.status(401).json({ message: "Invalid signature" });
+}
+
+// File naming & upload restrictions
+filename: function (req, file, cb) {
+    const uniqueName =
+      Date.now() + "-" + file.originalname + path.extname(file.originalname);
+    cb(null, uniqueName);
+  },
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+});
+
+// Role-based access
+try {
+    ...
+    if (req.user.role !== "admin") {
+      return res.status(403).json({ message: "Not authorized" });
+    }
+    ...
+}    catch (error) {
+    res.status(500).json({ message: "Server Error"});
+}
+
+// CORS protection
+app.use(
+  cors({
+    origin:
+      process.env.NODE_ENV === "production"
+        ? process.env.FRONTEND_URL
+        : "http://localhost:3000",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
+```
+
+## Testing
+
+Test Driven Development has been implemented, using the Jest testing framework. An example of one of the tests is given below.
+
+```javascript
+describe("GET /me", () => {
+  it("should return current user when authenticated", async () => {
+    const response = await request(app).get("/me");
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(mockUser);
+  });
+});
+```
+
+The code coverage achieved by all the tests is 67.5%.
 
 ## Deployment
 
