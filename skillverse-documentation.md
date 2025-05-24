@@ -18,8 +18,9 @@
 5. [Core Features](#core-features)
 6. [Technical Implementations](#technical-implementations)
 7. [Security](#security)
-8. [Deployment](#deployment)
-9. [Known Issues](#known-issues)
+8. [Testing](#testing)
+9. [Deployment](#deployment)
+10. [Known Issues](#known-issues)
 
 ## Overview
 
@@ -725,6 +726,22 @@ app.use(
   })
 );
 ```
+
+## Testing
+
+Test Driven Development has been implemented, using the Jest testing framework. An example of one of the tests is given below.
+
+```javascript
+describe("GET /me", () => {
+  it("should return current user when authenticated", async () => {
+    const response = await request(app).get("/me");
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(mockUser);
+  });
+});
+```
+
+The code coverage achieved by all the tests is 67.5%.
 
 ## Deployment
 
