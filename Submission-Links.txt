@@ -1,6 +1,6 @@
 IMPORTANT LINKS RELATED TO THIS PROJECT:
 
-1. YouTube project demo: <to-be-provided>
+1. YouTube project demo: https://www.youtube.com/watch?v=HHg_KDfltgc
 
 2. GitHub Organization: https://github.com/SkillVerser **Please use this link when accessing our repo's. It contains a README that details precisely how to navigate our docs**
 
